@@ -5,7 +5,7 @@
 #include "json.h"
 
 
-int main() {
+int main(int argc, char **argv) {
   printf("Hello World!\n");
   cJSON* json = get_json("speedtest_server_list.json");
   if(json == NULL){

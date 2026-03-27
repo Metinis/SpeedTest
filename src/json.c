@@ -1,6 +1,6 @@
 #include "json.h"
 #include <stdio.h>
-#include "download.h"
+#include "tests.h"
 
 cJSON* get_json(const char* file) {
   FILE *fp = fopen("speedtest_server_list.json", "r");
@@ -50,6 +50,7 @@ void process_item(cJSON* item, CURLcode result, CURL* curl) {
     if (host->valuestring != NULL) {
       printf("Host: %s\n",host->valuestring);
       download_test(result, curl, host->valuestring);
+      upload_test(result, curl, host->valuestring);
     }     
     if(id->valuestring != NULL) {
       printf("ID: %s\n", id->valuestring);
