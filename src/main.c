@@ -23,19 +23,19 @@ int main(int argc, char **argv) {
 
   while ((opt = getopt(argc, argv, "duas:")) != -1) {
     switch (opt) {
-      case 'd':
+      case 'd': //download
         do_download = 1;
         has_valid_option = true;
         break;
-      case 'u':
+      case 'u': //upload
         do_upload = 1;
         has_valid_option = true;
         break;
-      case 'a':
+      case 'a': //auto
         auto_mode = 1;
         has_valid_option = true;
         break;
-      case 's':
+      case 's': //host arg
         if (optarg == NULL) {
           fprintf(stderr, "Error: -s requires a host argument\n");
           return 1;
