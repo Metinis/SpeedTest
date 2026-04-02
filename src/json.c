@@ -1,9 +1,8 @@
 #include "json.h"
 #include <stdio.h>
-#include "tests.h"
 
 cJSON* get_json(const char* file) {
-  FILE *fp = fopen("speedtest_server_list.json", "r");
+  FILE *fp = fopen(file, "r");
   if(fp == NULL) {
     printf("Error: unable to open file \n");
     return NULL;
@@ -31,29 +30,19 @@ cJSON* get_json(const char* file) {
   return json;
 }
 
-void process_item(cJSON* item, CURLcode result, CURL* curl) {
+Server parse_server(cJSON* item) {
+    Server s = {0};
+
+    cJSON *host = cJSON_GetObjectItem(item, "host");
     cJSON *country = cJSON_GetObjectItem(item, "country");
     cJSON *city = cJSON_GetObjectItem(item, "city");
     cJSON *provider = cJSON_GetObjectItem(item, "provider");
-    cJSON *host = cJSON_GetObjectItem(item, "host");
-    cJSON *id = cJSON_GetObjectItem(item, "id");
 
-    if(country->valuestring != NULL) {
-      printf("Country: %s\n", country->valuestring);
-    }
-    if(city->valuestring != NULL) {
-      printf("City : %s\n", city->valuestring);
-    }
-    if(provider->valuestring != NULL) {
-      printf("Provider: %s\n", provider->valuestring);
-    }
-    if (host->valuestring != NULL) {
-      printf("Host: %s\n",host->valuestring);
-      download_test(result, curl, host->valuestring);
-      upload_test(result, curl, host->valuestring);
-    }     
-    if(id->valuestring != NULL) {
-      printf("ID: %s\n", id->valuestring);
-    }
+    if (cJSON_IsString(host)) s.host = host->valuestring;
+    if (cJSON_IsString(country)) s.country = country->valuestring;
+    if (cJSON_IsString(city)) s.city = city->valuestring;
+    if (cJSON_IsString(provider)) s.provider = provider->valuestring;
 
+    return s;
 }
+
