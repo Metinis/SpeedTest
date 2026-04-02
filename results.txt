@@ -1,0 +1,5 @@
+=== RESULTS ===
+Download: 3.381095 Mbps
+Upload: 87.096455 Mbps
+Server: speedtest.livcom.us:8080
+User Location: United States

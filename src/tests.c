@@ -74,7 +74,7 @@ double upload_test(CURL* curl, const char* url) {
 
   curl_easy_setopt(curl, CURLOPT_INFILESIZE_LARGE, (curl_off_t)upload_size);
 
-  curl_easy_setopt(curl, CURLOPT_TIMEOUT, 20L);
+  curl_easy_setopt(curl, CURLOPT_TIMEOUT, 15L);
   curl_easy_setopt(curl, CURLOPT_USERAGENT, "Mozilla/5.0");
 
   CURLcode res = curl_easy_perform(curl);
